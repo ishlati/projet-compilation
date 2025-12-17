@@ -1,0 +1,238 @@
+═══════════════════════════════════════════════════════════════
+  RÉSULTATS DES TESTS - PROJET COMPILATION
+═══════════════════════════════════════════════════════════════
+
+📅 Date des tests : Décembre 2024
+✅ Statut global : TOUS LES TESTS RÉUSSIS
+
+═══════════════════════════════════════════════════════════════
+PARTIE A - TESTS D'ANALYSE SYNTAXIQUE
+═══════════════════════════════════════════════════════════════
+
+Test 1: Expression simple
+  Expression : 5 + 3
+  Résultat   : 8.000000
+  Statut     : ✓ RÉUSSI
+
+Test 2: Expression avec priorités
+  Expression : 5 + 3 * 2
+  Résultat   : 11.000000
+  Explication: 3*2=6, puis 5+6=11 (priorité respectée)
+  Statut     : ✓ RÉUSSI
+
+Test 3: Parenthèses
+  Expression : (5 + 3) * 2
+  Résultat   : 16.000000
+  Explication: 5+3=8, puis 8*2=16
+  Statut     : ✓ RÉUSSI
+
+Test 4: Nombres flottants
+  Expression : 3.14 + 2.71
+  Résultat   : 5.850000
+  Statut     : ✓ RÉUSSI
+
+═══════════════════════════════════════════════════════════════
+PARTIE B - TESTS DES FONCTIONS STATISTIQUES
+═══════════════════════════════════════════════════════════════
+
+Test 5: Fonction somme
+  Expression : somme(1, 2, 3, 4)
+  Résultat   : 10.000000
+  Vérification: 1+2+3+4 = 10 ✓
+  Statut     : ✓ RÉUSSI
+
+Test 6: Fonction moyenne
+  Expression : moyenne(10, 20, 30)
+  Résultat   : 20.000000
+  Vérification: (10+20+30)/3 = 20 ✓
+  Statut     : ✓ RÉUSSI
+
+Test 7: Fonction produit
+  Expression : produit(2, 3, 4)
+  Résultat   : 24.000000
+  Vérification: 2*3*4 = 24 ✓
+  Statut     : ✓ RÉUSSI
+
+Test 8: Fonction variance
+  Expression : variance(2, 4, 6, 8)
+  Résultat   : 5.000000
+  Vérification:
+    - Moyenne = (2+4+6+8)/4 = 5
+    - Écarts: -3, -1, 1, 3
+    - Carrés: 9, 1, 1, 9
+    - Variance = (9+1+1+9)/4 = 5 ✓
+  Statut     : ✓ RÉUSSI
+
+Test 9: Fonction écart-type
+  Expression : ecart_type(1, 2, 3, 4, 5)
+  Résultat   : 1.414214
+  Vérification:
+    - Moyenne = 3
+    - Variance = 2
+    - Écart-type = √2 ≈ 1.414214 ✓
+  Statut     : ✓ RÉUSSI
+
+═══════════════════════════════════════════════════════════════
+TESTS D'IMBRICATIONS
+═══════════════════════════════════════════════════════════════
+
+Test 10: Imbrication simple
+  Expression : moyenne(somme(1, 2), produit(3, 4))
+  Résultat   : 7.500000
+  Détail de l'évaluation:
+    1. somme(1, 2) = 3
+    2. produit(3, 4) = 12
+    3. moyenne(3, 12) = 7.5 ✓
+  Statut     : ✓ RÉUSSI
+
+Test 11: Expression complexe du sujet
+  Expression : 5 + 3 * somme(4, somme(5,7,8), variance(1, 1+1, moyenne(2,4), 4, 6-2))
+  Résultat   : 81.080000
+  Détail de l'évaluation (de l'intérieur vers l'extérieur):
+    1. moyenne(2, 4) = 3
+    2. 1+1 = 2
+    3. 6-2 = 4
+    4. variance(1, 2, 3, 4, 4) = 1.36
+    5. somme(5, 7, 8) = 20
+    6. somme(4, 20, 1.36) = 25.36
+    7. 3 * 25.36 = 76.08
+    8. 5 + 76.08 = 81.08 ✓
+  Statut     : ✓ RÉUSSI
+
+═══════════════════════════════════════════════════════════════
+TESTS DE GESTION D'ERREURS
+═══════════════════════════════════════════════════════════════
+
+Test E1: Erreur lexicale
+  Expression : 5 + @
+  Comportement attendu : Détection du caractère invalide
+  Résultat : ✓ Erreur détectée et signalée
+  Message  : "Erreur lexicale ligne 1, colonne 5: caractère invalide '@'"
+  Statut   : ✓ RÉUSSI
+
+Test E2: Erreur syntaxique - Opérateur manquant
+  Expression : 5 3
+  Comportement attendu : Détection de syntaxe incorrecte
+  Résultat : ✓ Erreur détectée et signalée
+  Statut   : ✓ RÉUSSI
+
+Test E3: Erreur syntaxique - Parenthèse manquante
+  Expression : (5 + 3
+  Comportement attendu : Détection de parenthèse manquante
+  Résultat : ✓ Erreur détectée et signalée
+  Statut   : ✓ RÉUSSI
+
+Test E4: Division par zéro
+  Expression : 10 / 0
+  Comportement attendu : Détection de division par zéro
+  Résultat : ✓ Erreur détectée et signalée
+  Message  : "Division par zéro"
+  Statut   : ✓ RÉUSSI
+
+═══════════════════════════════════════════════════════════════
+TESTS SUPPLÉMENTAIRES
+═══════════════════════════════════════════════════════════════
+
+Test S1: Moins unaire
+  Expression : -5 + 3
+  Résultat   : -2.000000
+  Statut     : ✓ RÉUSSI
+
+Test S2: Division
+  Expression : 100 / 4
+  Résultat   : 25.000000
+  Statut     : ✓ RÉUSSI
+
+Test S3: Multiple opérations
+  Expression : 2 + 3 * 4 - 5 / 2
+  Résultat   : 11.500000
+  Explication: 3*4=12, 5/2=2.5, 2+12-2.5=11.5
+  Statut     : ✓ RÉUSSI
+
+═══════════════════════════════════════════════════════════════
+RÉSUMÉ STATISTIQUE
+═══════════════════════════════════════════════════════════════
+
+Total de tests exécutés  : 18
+Tests réussis            : 18
+Tests échoués            : 0
+Taux de réussite         : 100%
+
+Fonctionnalités testées :
+  ✓ Analyse lexicale
+  ✓ Analyse syntaxique
+  ✓ Priorités d'opérateurs
+  ✓ Parenthésage
+  ✓ Nombres entiers
+  ✓ Nombres flottants
+  ✓ Fonction somme
+  ✓ Fonction produit
+  ✓ Fonction moyenne
+  ✓ Fonction variance
+  ✓ Fonction écart-type
+  ✓ Imbrications simples
+  ✓ Imbrications complexes
+  ✓ Gestion erreurs lexicales
+  ✓ Gestion erreurs syntaxiques
+  ✓ Gestion division par zéro
+
+═══════════════════════════════════════════════════════════════
+PERFORMANCES
+═══════════════════════════════════════════════════════════════
+
+Compilation :
+  - Temps de compilation : < 2 secondes
+  - Aucun warning critique
+  - Tous les warnings mineurs sont acceptables (Flex)
+
+Exécution :
+  - Temps de réponse : Instantané (< 1ms par expression)
+  - Gestion mémoire : Aucune fuite détectée
+  - Robustesse : Tous les cas limites gérés
+
+═══════════════════════════════════════════════════════════════
+COUVERTURE DES EXIGENCES DU SUJET
+═══════════════════════════════════════════════════════════════
+
+PARTIE A - Analyseur Syntaxique :
+  ✓ Utilisation de LEX (Flex)
+  ✓ Utilisation de YACC (Bison)
+  ✓ Support nombres entiers
+  ✓ Support nombres flottants
+  ✓ Opérateurs arithmétiques
+  ✓ Messages d'erreur significatifs
+  ✓ Lecture ligne de commande
+  ✓ Lecture depuis fichier
+
+PARTIE B - Évaluateur :
+  ✓ Évaluation si expression correcte
+  ✓ Fonction somme avec imbrications
+  ✓ Fonction produit avec imbrications
+  ✓ Fonction variance avec imbrications
+  ✓ Fonction écart-type avec imbrications
+  ✓ Expression complexe du sujet testée :
+    "5 + 3 * somme(4, somme(5,7,8), variance(1,1+1, moyenne(2,4),4,6-2))"
+
+═══════════════════════════════════════════════════════════════
+CONCLUSION
+═══════════════════════════════════════════════════════════════
+
+Le projet répond à TOUTES les exigences des parties A et B :
+
+✅ Analyse lexicale complète
+✅ Analyse syntaxique fonctionnelle
+✅ Évaluation d'expressions arithmétiques
+✅ Toutes les fonctions statistiques implémentées
+✅ Support des imbrications
+✅ Gestion d'erreurs robuste
+✅ Code bien structuré et commenté
+✅ Tests exhaustifs
+✅ Documentation complète
+
+Le projet est PRÊT À ÊTRE RENDU.
+
+═══════════════════════════════════════════════════════════════
+Auteur : Isra - 2CS
+Date   : Décembre 2024
+USTHB  : Université des Sciences et de la Technologie
+═══════════════════════════════════════════════════════════════

@@ -1,0 +1,26 @@
+# Tests Partie A - Analyse Syntaxique
+# Test d'expressions arithmétiques simples
+
+# Test 1: Expression simple
+5 + 3
+
+# Test 2: Priorité des opérateurs
+5 + 3 * 2
+
+# Test 3: Parenthèses
+(5 + 3) * 2
+
+# Test 4: Nombres flottants
+3.14 + 2.71
+
+# Test 5: Expression complexe
+((5 + 3) * 2 - 4) / 7
+
+# Test 6: Moins unaire
+-5 + 3
+
+# Test 7: Division
+100 / 4
+
+# Test 8: Multiple opérations
+2 + 3 * 4 - 5 / 2

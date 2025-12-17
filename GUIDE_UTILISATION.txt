@@ -1,0 +1,274 @@
+═══════════════════════════════════════════════════════════════
+  PROJET COMPILATION - GUIDE D'UTILISATION RAPIDE
+  Évaluateur d'Expressions Arithmétiques avec Flex & Bison
+═══════════════════════════════════════════════════════════════
+
+📁 STRUCTURE DU PROJET
+─────────────────────────────────────────────────────────────
+
+projet-compilation/
+├── src/
+│   ├── lexical.l          # Analyseur lexical (Flex)
+│   ├── syntaxique.y       # Analyseur syntaxique (Bison)
+│   ├── fonctions.c        # Fonctions statistiques
+│   └── fonctions.h        # Headers
+├── tests/
+│   ├── test_partie_a.txt  # Tests partie A
+│   ├── test_partie_b.txt  # Tests partie B
+│   └── test_erreurs.txt   # Tests erreurs
+├── Makefile               # Automatisation
+├── README.md              # Documentation complète
+└── .gitignore             # Fichiers à ignorer
+
+═══════════════════════════════════════════════════════════════
+🚀 COMPILATION
+═══════════════════════════════════════════════════════════════
+
+1. Compiler le projet :
+   $ make
+
+2. Nettoyer et recompiler :
+   $ make clean
+   $ make
+
+3. Recompilation complète :
+   $ make rebuild
+
+═══════════════════════════════════════════════════════════════
+🎯 UTILISATION
+═══════════════════════════════════════════════════════════════
+
+1. Mode interactif :
+   $ ./calculateur
+   > 5 + 3
+   > somme(1, 2, 3)
+   > Ctrl+D pour quitter
+
+2. Depuis un fichier :
+   $ ./calculateur tests/test_partie_b.txt
+
+3. Depuis stdin (pipe) :
+   $ echo "5 + 3 * 2" | ./calculateur
+
+═══════════════════════════════════════════════════════════════
+🧪 TESTS
+═══════════════════════════════════════════════════════════════
+
+1. Tests basiques :
+   $ make test
+
+2. Tests depuis fichiers :
+   $ make test-files
+
+3. Tests d'erreurs :
+   $ make test-errors
+
+4. Tous les tests :
+   $ make test-all
+
+═══════════════════════════════════════════════════════════════
+📝 EXEMPLES D'EXPRESSIONS
+═══════════════════════════════════════════════════════════════
+
+✓ Expressions arithmétiques :
+  5 + 3                              → 8
+  5 + 3 * 2                          → 11
+  (5 + 3) * 2                        → 16
+  3.14 + 2.71                        → 5.85
+
+✓ Fonctions statistiques :
+  somme(1, 2, 3, 4)                  → 10
+  produit(2, 3, 4)                   → 24
+  moyenne(10, 20, 30)                → 20
+  variance(2, 4, 6, 8)               → 5
+  ecart_type(1, 2, 3, 4, 5)          → 1.414214
+
+✓ Imbrications :
+  moyenne(somme(1, 2), produit(3, 4))           → 7.5
+  5 + 3 * somme(4, somme(5,7,8), variance(...)) → 81.08
+
+═══════════════════════════════════════════════════════════════
+⚙️ DÉTAILS TECHNIQUES
+═══════════════════════════════════════════════════════════════
+
+PARTIE A - Analyse Syntaxique :
+  ✓ Reconnaissance des tokens (nombres, opérateurs)
+  ✓ Vérification de la syntaxe
+  ✓ Gestion des priorités d'opérateurs
+  ✓ Support des parenthèses
+  ✓ Détection d'erreurs lexicales et syntaxiques
+
+PARTIE B - Évaluation :
+  ✓ Calcul du résultat de l'expression
+  ✓ Fonction somme(a, b, c, ...)
+  ✓ Fonction produit(a, b, c, ...)
+  ✓ Fonction moyenne(a, b, c, ...)
+  ✓ Fonction variance(a, b, c, ...)
+  ✓ Fonction ecart_type(a, b, c, ...)
+  ✓ Imbrication de fonctions
+  ✓ Nombre variable d'arguments
+
+═══════════════════════════════════════════════════════════════
+🔧 GRAMMAIRE
+═══════════════════════════════════════════════════════════════
+
+programme   → expression
+
+expression  → expression '+' expression
+            | expression '-' expression
+            | expression '*' expression
+            | expression '/' expression
+            | '-' expression
+            | '(' expression ')'
+            | fonction
+            | NOMBRE
+
+fonction    → SOMME '(' liste_args ')'
+            | PRODUIT '(' liste_args ')'
+            | MOYENNE '(' liste_args ')'
+            | VARIANCE '(' liste_args ')'
+            | ECART_TYPE '(' liste_args ')'
+
+liste_args  → expression
+            | liste_args ',' expression
+
+PRIORITÉS :
+  1. Parenthèses        ( )
+  2. Moins unaire       -
+  3. Mult/Division      * /
+  4. Add/Soustraction    + -
+
+═══════════════════════════════════════════════════════════════
+⚠️ GESTION D'ERREURS
+═══════════════════════════════════════════════════════════════
+
+✓ Erreurs lexicales :
+  5 + @  → Caractère invalide
+
+✓ Erreurs syntaxiques :
+  5 +    → Syntaxe incorrecte
+  (5 + 3 → Parenthèse manquante
+
+✓ Erreurs sémantiques :
+  10 / 0 → Division par zéro
+
+═══════════════════════════════════════════════════════════════
+📚 FORMULES MATHÉMATIQUES
+═══════════════════════════════════════════════════════════════
+
+Somme :
+  somme(x₁, x₂, ..., xₙ) = Σxᵢ
+
+Produit :
+  produit(x₁, x₂, ..., xₙ) = Πxᵢ
+
+Moyenne :
+  moyenne(x₁, x₂, ..., xₙ) = (Σxᵢ) / n
+
+Variance :
+  variance(x₁, x₂, ..., xₙ) = Σ(xᵢ - moyenne)² / n
+
+Écart-type :
+  ecart_type(x₁, x₂, ..., xₙ) = √variance
+
+═══════════════════════════════════════════════════════════════
+🛠️ DÉPANNAGE
+═══════════════════════════════════════════════════════════════
+
+Problème : "bison: command not found"
+Solution : sudo apt-get install flex bison
+
+Problème : "fonctions.h: No such file or directory"
+Solution : Vérifier que les fichiers sont dans src/
+
+Problème : Erreurs de compilation
+Solution : make clean && make rebuild
+
+═══════════════════════════════════════════════════════════════
+✅ CRITÈRES D'ÉVALUATION
+═══════════════════════════════════════════════════════════════
+
+PARTIE A (Analyse Syntaxique) :
+  ✓ Analyseur lexical fonctionnel
+  ✓ Analyseur syntaxique fonctionnel
+  ✓ Support nombres entiers et flottants
+  ✓ Opérateurs arithmétiques (+, -, *, /)
+  ✓ Gestion des parenthèses
+  ✓ Priorités d'opérateurs correctes
+  ✓ Messages d'erreur clairs
+
+PARTIE B (Évaluation) :
+  ✓ Évaluation des expressions
+  ✓ Fonction somme() implémentée
+  ✓ Fonction produit() implémentée
+  ✓ Fonction moyenne() implémentée
+  ✓ Fonction variance() implémentée
+  ✓ Fonction ecart_type() implémentée
+  ✓ Support des imbrications
+  ✓ Nombre variable d'arguments
+
+QUALITÉ DU CODE :
+  ✓ Code commenté et structuré
+  ✓ Gestion de la mémoire (malloc/free)
+  ✓ Pas de fuites mémoire
+  ✓ Tests exhaustifs
+  ✓ Documentation complète
+
+═══════════════════════════════════════════════════════════════
+📝 RAPPORT À RENDRE
+═══════════════════════════════════════════════════════════════
+
+Le rapport doit contenir :
+
+1. Introduction
+   - Présentation du projet
+   - Objectifs
+
+2. Analyse Lexicale
+   - Tokens définis
+   - Règles LEX/Flex
+   - Gestion des erreurs lexicales
+
+3. Analyse Syntaxique
+   - Grammaire complète
+   - Priorités et associativité
+   - Gestion des erreurs syntaxiques
+
+4. Évaluation
+   - Stratégie d'évaluation
+   - Structure de données (listes)
+   - Implémentation des fonctions
+
+5. Tests
+   - Tests réalisés
+   - Résultats obtenus
+   - Cas limites testés
+
+6. Difficultés Rencontrées
+   - Problèmes et solutions
+
+7. Conclusion
+
+═══════════════════════════════════════════════════════════════
+👤 AUTEUR
+═══════════════════════════════════════════════════════════════
+
+Isra - 2CS
+USTHB - Université des Sciences et de la Technologie
+Projet de Compilation - Décembre 2024
+
+═══════════════════════════════════════════════════════════════
+📞 AIDE
+═══════════════════════════════════════════════════════════════
+
+Pour afficher l'aide du Makefile :
+  $ make help
+
+Pour toute question sur le projet, consulter :
+  - README.md (documentation complète)
+  - Les commentaires dans le code source
+  - Le sujet du projet (TP-PROJET.pdf)
+
+═══════════════════════════════════════════════════════════════
+                    Fin du Guide d'Utilisation
+═══════════════════════════════════════════════════════════════

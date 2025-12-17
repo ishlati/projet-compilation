@@ -1,0 +1,562 @@
+Grammar
+
+    0 $accept: programme $end
+
+    1 programme: expression
+
+    2 expression: expression PLUS expression
+    3           | expression MOINS expression
+    4           | expression FOIS expression
+    5           | expression DIVISE expression
+    6           | MOINS expression
+    7           | PAREN_G expression PAREN_D
+    8           | fonction
+    9           | NOMBRE
+
+   10 fonction: SOMME PAREN_G liste_args PAREN_D
+   11         | PRODUIT PAREN_G liste_args PAREN_D
+   12         | MOYENNE PAREN_G liste_args PAREN_D
+   13         | VARIANCE PAREN_G liste_args PAREN_D
+   14         | ECART_TYPE PAREN_G liste_args PAREN_D
+
+   15 liste_args: expression
+   16           | liste_args VIRGULE expression
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    NOMBRE <nombre> (258) 9
+    PLUS (259) 2
+    MOINS (260) 3 6
+    FOIS (261) 4
+    DIVISE (262) 5
+    PAREN_G (263) 7 10 11 12 13 14
+    PAREN_D (264) 7 10 11 12 13 14
+    VIRGULE (265) 16
+    SOMME (266) 10
+    PRODUIT (267) 11
+    MOYENNE (268) 12
+    VARIANCE (269) 13
+    ECART_TYPE (270) 14
+    UMINUS (271)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (17)
+        on left: 0
+    programme (18)
+        on left: 1
+        on right: 0
+    expression <nombre> (19)
+        on left: 2 3 4 5 6 7 8 9
+        on right: 1 2 3 4 5 6 7 15 16
+    fonction <nombre> (20)
+        on left: 10 11 12 13 14
+        on right: 8
+    liste_args <liste> (21)
+        on left: 15 16
+        on right: 10 11 12 13 14 16
+
+
+State 0
+
+    0 $accept: • programme $end
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    programme   go to state 9
+    expression  go to state 10
+    fonction    go to state 11
+
+
+State 1
+
+    9 expression: NOMBRE •
+
+    $default  reduce using rule 9 (expression)
+
+
+State 2
+
+    6 expression: MOINS • expression
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 12
+    fonction    go to state 11
+
+
+State 3
+
+    7 expression: PAREN_G • expression PAREN_D
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 13
+    fonction    go to state 11
+
+
+State 4
+
+   10 fonction: SOMME • PAREN_G liste_args PAREN_D
+
+    PAREN_G  shift, and go to state 14
+
+
+State 5
+
+   11 fonction: PRODUIT • PAREN_G liste_args PAREN_D
+
+    PAREN_G  shift, and go to state 15
+
+
+State 6
+
+   12 fonction: MOYENNE • PAREN_G liste_args PAREN_D
+
+    PAREN_G  shift, and go to state 16
+
+
+State 7
+
+   13 fonction: VARIANCE • PAREN_G liste_args PAREN_D
+
+    PAREN_G  shift, and go to state 17
+
+
+State 8
+
+   14 fonction: ECART_TYPE • PAREN_G liste_args PAREN_D
+
+    PAREN_G  shift, and go to state 18
+
+
+State 9
+
+    0 $accept: programme • $end
+
+    $end  shift, and go to state 19
+
+
+State 10
+
+    1 programme: expression •
+    2 expression: expression • PLUS expression
+    3           | expression • MOINS expression
+    4           | expression • FOIS expression
+    5           | expression • DIVISE expression
+
+    PLUS    shift, and go to state 20
+    MOINS   shift, and go to state 21
+    FOIS    shift, and go to state 22
+    DIVISE  shift, and go to state 23
+
+    $default  reduce using rule 1 (programme)
+
+
+State 11
+
+    8 expression: fonction •
+
+    $default  reduce using rule 8 (expression)
+
+
+State 12
+
+    2 expression: expression • PLUS expression
+    3           | expression • MOINS expression
+    4           | expression • FOIS expression
+    5           | expression • DIVISE expression
+    6           | MOINS expression •
+
+    $default  reduce using rule 6 (expression)
+
+
+State 13
+
+    2 expression: expression • PLUS expression
+    3           | expression • MOINS expression
+    4           | expression • FOIS expression
+    5           | expression • DIVISE expression
+    7           | PAREN_G expression • PAREN_D
+
+    PLUS     shift, and go to state 20
+    MOINS    shift, and go to state 21
+    FOIS     shift, and go to state 22
+    DIVISE   shift, and go to state 23
+    PAREN_D  shift, and go to state 24
+
+
+State 14
+
+   10 fonction: SOMME PAREN_G • liste_args PAREN_D
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 25
+    fonction    go to state 11
+    liste_args  go to state 26
+
+
+State 15
+
+   11 fonction: PRODUIT PAREN_G • liste_args PAREN_D
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 25
+    fonction    go to state 11
+    liste_args  go to state 27
+
+
+State 16
+
+   12 fonction: MOYENNE PAREN_G • liste_args PAREN_D
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 25
+    fonction    go to state 11
+    liste_args  go to state 28
+
+
+State 17
+
+   13 fonction: VARIANCE PAREN_G • liste_args PAREN_D
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 25
+    fonction    go to state 11
+    liste_args  go to state 29
+
+
+State 18
+
+   14 fonction: ECART_TYPE PAREN_G • liste_args PAREN_D
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 25
+    fonction    go to state 11
+    liste_args  go to state 30
+
+
+State 19
+
+    0 $accept: programme $end •
+
+    $default  accept
+
+
+State 20
+
+    2 expression: expression PLUS • expression
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 31
+    fonction    go to state 11
+
+
+State 21
+
+    3 expression: expression MOINS • expression
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 32
+    fonction    go to state 11
+
+
+State 22
+
+    4 expression: expression FOIS • expression
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 33
+    fonction    go to state 11
+
+
+State 23
+
+    5 expression: expression DIVISE • expression
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 34
+    fonction    go to state 11
+
+
+State 24
+
+    7 expression: PAREN_G expression PAREN_D •
+
+    $default  reduce using rule 7 (expression)
+
+
+State 25
+
+    2 expression: expression • PLUS expression
+    3           | expression • MOINS expression
+    4           | expression • FOIS expression
+    5           | expression • DIVISE expression
+   15 liste_args: expression •
+
+    PLUS    shift, and go to state 20
+    MOINS   shift, and go to state 21
+    FOIS    shift, and go to state 22
+    DIVISE  shift, and go to state 23
+
+    $default  reduce using rule 15 (liste_args)
+
+
+State 26
+
+   10 fonction: SOMME PAREN_G liste_args • PAREN_D
+   16 liste_args: liste_args • VIRGULE expression
+
+    PAREN_D  shift, and go to state 35
+    VIRGULE  shift, and go to state 36
+
+
+State 27
+
+   11 fonction: PRODUIT PAREN_G liste_args • PAREN_D
+   16 liste_args: liste_args • VIRGULE expression
+
+    PAREN_D  shift, and go to state 37
+    VIRGULE  shift, and go to state 36
+
+
+State 28
+
+   12 fonction: MOYENNE PAREN_G liste_args • PAREN_D
+   16 liste_args: liste_args • VIRGULE expression
+
+    PAREN_D  shift, and go to state 38
+    VIRGULE  shift, and go to state 36
+
+
+State 29
+
+   13 fonction: VARIANCE PAREN_G liste_args • PAREN_D
+   16 liste_args: liste_args • VIRGULE expression
+
+    PAREN_D  shift, and go to state 39
+    VIRGULE  shift, and go to state 36
+
+
+State 30
+
+   14 fonction: ECART_TYPE PAREN_G liste_args • PAREN_D
+   16 liste_args: liste_args • VIRGULE expression
+
+    PAREN_D  shift, and go to state 40
+    VIRGULE  shift, and go to state 36
+
+
+State 31
+
+    2 expression: expression • PLUS expression
+    2           | expression PLUS expression •
+    3           | expression • MOINS expression
+    4           | expression • FOIS expression
+    5           | expression • DIVISE expression
+
+    FOIS    shift, and go to state 22
+    DIVISE  shift, and go to state 23
+
+    $default  reduce using rule 2 (expression)
+
+
+State 32
+
+    2 expression: expression • PLUS expression
+    3           | expression • MOINS expression
+    3           | expression MOINS expression •
+    4           | expression • FOIS expression
+    5           | expression • DIVISE expression
+
+    FOIS    shift, and go to state 22
+    DIVISE  shift, and go to state 23
+
+    $default  reduce using rule 3 (expression)
+
+
+State 33
+
+    2 expression: expression • PLUS expression
+    3           | expression • MOINS expression
+    4           | expression • FOIS expression
+    4           | expression FOIS expression •
+    5           | expression • DIVISE expression
+
+    $default  reduce using rule 4 (expression)
+
+
+State 34
+
+    2 expression: expression • PLUS expression
+    3           | expression • MOINS expression
+    4           | expression • FOIS expression
+    5           | expression • DIVISE expression
+    5           | expression DIVISE expression •
+
+    $default  reduce using rule 5 (expression)
+
+
+State 35
+
+   10 fonction: SOMME PAREN_G liste_args PAREN_D •
+
+    $default  reduce using rule 10 (fonction)
+
+
+State 36
+
+   16 liste_args: liste_args VIRGULE • expression
+
+    NOMBRE      shift, and go to state 1
+    MOINS       shift, and go to state 2
+    PAREN_G     shift, and go to state 3
+    SOMME       shift, and go to state 4
+    PRODUIT     shift, and go to state 5
+    MOYENNE     shift, and go to state 6
+    VARIANCE    shift, and go to state 7
+    ECART_TYPE  shift, and go to state 8
+
+    expression  go to state 41
+    fonction    go to state 11
+
+
+State 37
+
+   11 fonction: PRODUIT PAREN_G liste_args PAREN_D •
+
+    $default  reduce using rule 11 (fonction)
+
+
+State 38
+
+   12 fonction: MOYENNE PAREN_G liste_args PAREN_D •
+
+    $default  reduce using rule 12 (fonction)
+
+
+State 39
+
+   13 fonction: VARIANCE PAREN_G liste_args PAREN_D •
+
+    $default  reduce using rule 13 (fonction)
+
+
+State 40
+
+   14 fonction: ECART_TYPE PAREN_G liste_args PAREN_D •
+
+    $default  reduce using rule 14 (fonction)
+
+
+State 41
+
+    2 expression: expression • PLUS expression
+    3           | expression • MOINS expression
+    4           | expression • FOIS expression
+    5           | expression • DIVISE expression
+   16 liste_args: liste_args VIRGULE expression •
+
+    PLUS    shift, and go to state 20
+    MOINS   shift, and go to state 21
+    FOIS    shift, and go to state 22
+    DIVISE  shift, and go to state 23
+
+    $default  reduce using rule 16 (liste_args)

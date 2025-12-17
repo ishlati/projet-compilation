@@ -1,0 +1,32 @@
+# Tests Partie B - Évaluation et Fonctions
+# Test des fonctions statistiques
+
+# Test 1: Fonction somme
+somme(1, 2, 3, 4, 5)
+
+# Test 2: Fonction produit
+produit(2, 3, 4)
+
+# Test 3: Fonction moyenne
+moyenne(10, 20, 30, 40)
+
+# Test 4: Fonction variance
+variance(2, 4, 6, 8)
+
+# Test 5: Fonction écart-type
+ecart_type(1, 2, 3, 4, 5)
+
+# Test 6: Expression mixte
+5 + somme(1, 2, 3)
+
+# Test 7: Imbrication simple
+moyenne(somme(1, 2), produit(3, 4))
+
+# Test 8: Imbrication complexe (comme dans le sujet)
+5 + 3 * somme(4, somme(5, 7, 8), variance(1, 1+1, moyenne(2, 4), 4, 6-2))
+
+# Test 9: Multiple imbrications
+produit(2, moyenne(4, 6), somme(1, 2, 3))
+
+# Test 10: Calcul complexe
+variance(moyenne(1, 2), moyenne(3, 4), moyenne(5, 6))

@@ -1,0 +1,14 @@
+# Tests Gestion d'Erreurs
+# Ces tests devraient générer des erreurs
+
+# Erreur lexicale: caractère invalide
+5 + @
+
+# Erreur syntaxique: opérateur manquant
+5 3
+
+# Erreur syntaxique: parenthèse manquante
+(5 + 3
+
+# Division par zéro
+10 / 0
