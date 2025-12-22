@@ -74,6 +74,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 /* Prototypes */
 int yylex(void);
@@ -85,7 +86,7 @@ extern FILE *yyin;
 /* Variable globale pour le résultat */
 double resultat_final;
 
-#line 89 "syntaxique.tab.c"
+#line 90 "syntaxique.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -130,11 +131,13 @@ enum yysymbol_kind_t
   YYSYMBOL_VARIANCE = 14,                  /* VARIANCE  */
   YYSYMBOL_ECART_TYPE = 15,                /* ECART_TYPE  */
   YYSYMBOL_UMINUS = 16,                    /* UMINUS  */
-  YYSYMBOL_YYACCEPT = 17,                  /* $accept  */
-  YYSYMBOL_programme = 18,                 /* programme  */
-  YYSYMBOL_expression = 19,                /* expression  */
-  YYSYMBOL_fonction = 20,                  /* fonction  */
-  YYSYMBOL_liste_args = 21                 /* liste_args  */
+  YYSYMBOL_17_n_ = 17,                     /* '\n'  */
+  YYSYMBOL_YYACCEPT = 18,                  /* $accept  */
+  YYSYMBOL_programme = 19,                 /* programme  */
+  YYSYMBOL_ligne = 20,                     /* ligne  */
+  YYSYMBOL_expression = 21,                /* expression  */
+  YYSYMBOL_fonction = 22,                  /* fonction  */
+  YYSYMBOL_liste_args = 23                 /* liste_args  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -332,7 +335,7 @@ typedef int yy_state_fast_t;
 
 #define YY_ASSERT(E) ((void) (0 && (E)))
 
-#if !defined yyoverflow
+#if 1
 
 /* The parser invokes alloca or malloc; define the necessary symbols.  */
 
@@ -397,7 +400,7 @@ void free (void *); /* INFRINGES ON USER NAME SPACE */
 #   endif
 #  endif
 # endif
-#endif /* !defined yyoverflow */
+#endif /* 1 */
 
 #if (! defined yyoverflow \
      && (! defined __cplusplus \
@@ -460,18 +463,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  19
+#define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   46
+#define YYLAST   67
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  17
+#define YYNTOKENS  18
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  5
+#define YYNNTS  6
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  17
+#define YYNRULES  21
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  42
+#define YYNSTATES  47
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   271
@@ -489,7 +492,7 @@ union yyalloc
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      17,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -522,37 +525,35 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    61,    61,    69,    72,    75,    78,    86,    89,    92,
-      95,   102,   106,   110,   114,   118,   126,   130
+       0,    64,    64,    66,    70,    74,    77,    85,    88,    91,
+      94,   102,   105,   108,   111,   118,   122,   126,   130,   134,
+     142,   146
 };
 #endif
 
 /** Accessing symbol of state STATE.  */
 #define YY_ACCESSING_SYMBOL(State) YY_CAST (yysymbol_kind_t, yystos[State])
 
-#if YYDEBUG || 0
+#if 1
 /* The user-facing name of the symbol whose (internal) number is
    YYSYMBOL.  No bounds checking.  */
 static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 
-/* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
-   First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
-static const char *const yytname[] =
-{
-  "\"end of file\"", "error", "\"invalid token\"", "NOMBRE", "PLUS",
-  "MOINS", "FOIS", "DIVISE", "PAREN_G", "PAREN_D", "VIRGULE", "SOMME",
-  "PRODUIT", "MOYENNE", "VARIANCE", "ECART_TYPE", "UMINUS", "$accept",
-  "programme", "expression", "fonction", "liste_args", YY_NULLPTR
-};
-
 static const char *
 yysymbol_name (yysymbol_kind_t yysymbol)
 {
-  return yytname[yysymbol];
+  static const char *const yy_sname[] =
+  {
+  "end of file", "error", "invalid token", "NOMBRE", "PLUS", "MOINS",
+  "FOIS", "DIVISE", "PAREN_G", "PAREN_D", "VIRGULE", "SOMME", "PRODUIT",
+  "MOYENNE", "VARIANCE", "ECART_TYPE", "UMINUS", "'\\n'", "$accept",
+  "programme", "ligne", "expression", "fonction", "liste_args", YY_NULLPTR
+  };
+  return yy_sname[yysymbol];
 }
 #endif
 
-#define YYPACT_NINF (-8)
+#define YYPACT_NINF (-15)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -566,11 +567,11 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       1,    -8,     1,     1,    -7,    -3,    11,    37,    38,    28,
-      26,    -8,    -8,    20,     1,     1,     1,     1,     1,    -8,
-       1,     1,     1,     1,    -8,    26,    -2,     8,    25,    32,
-      34,     4,     4,    -8,    -8,    -8,     1,    -8,    -8,    -8,
-      -8,    26
+     -15,    30,   -15,   -14,   -15,    43,    43,    10,    14,    21,
+      24,    26,   -15,   -15,     2,   -15,   -15,   -15,     6,    43,
+      43,    43,    43,    43,    43,    43,    43,    43,   -15,   -15,
+      55,    -8,     7,    11,    18,    27,    46,    46,   -15,   -15,
+     -15,    43,   -15,   -15,   -15,   -15,    55
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -578,23 +579,23 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,    10,     0,     0,     0,     0,     0,     0,     0,     0,
-       2,     9,     7,     0,     0,     0,     0,     0,     0,     1,
-       0,     0,     0,     0,     8,    16,     0,     0,     0,     0,
-       0,     3,     4,     5,     6,    11,     0,    12,    13,    14,
-      15,    17
+       2,     0,     1,     0,    14,     0,     0,     0,     0,     0,
+       0,     0,     5,     3,     0,    13,     6,    11,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     4,    12,
+      20,     0,     0,     0,     0,     0,     7,     8,     9,    10,
+      15,     0,    16,    17,    18,    19,    21
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -8,    -8,     0,    -8,    22
+     -15,   -15,   -15,    -1,   -15,    44
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     9,    25,    11,    26
+       0,     1,    13,    30,    15,    31
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -602,45 +603,51 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      10,    14,    12,    13,     1,    15,     2,    35,    36,     3,
-      22,    23,     4,     5,     6,     7,     8,    37,    36,    16,
-      31,    32,    33,    34,    20,    21,    22,    23,    19,    24,
-      20,    21,    22,    23,    38,    36,    41,    27,    28,    29,
-      30,    39,    36,    40,    36,    17,    18
+      14,    40,    41,    16,    17,    18,    24,    25,    26,    27,
+      24,    25,    26,    27,     0,    29,    42,    41,    19,    28,
+      43,    41,    20,    36,    37,    38,    39,    44,    41,    21,
+       2,     3,    22,     4,    23,     5,    45,    41,     6,     0,
+      46,     7,     8,     9,    10,    11,     4,    12,     5,     0,
+       0,     6,    26,    27,     7,     8,     9,    10,    11,    24,
+      25,    26,    27,     0,    32,    33,    34,    35
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,     8,     2,     3,     3,     8,     5,     9,    10,     8,
-       6,     7,    11,    12,    13,    14,    15,     9,    10,     8,
-      20,    21,    22,    23,     4,     5,     6,     7,     0,     9,
-       4,     5,     6,     7,     9,    10,    36,    15,    16,    17,
-      18,     9,    10,     9,    10,     8,     8
+       1,     9,    10,    17,     5,     6,     4,     5,     6,     7,
+       4,     5,     6,     7,    -1,     9,     9,    10,     8,    17,
+       9,    10,     8,    24,    25,    26,    27,     9,    10,     8,
+       0,     1,     8,     3,     8,     5,     9,    10,     8,    -1,
+      41,    11,    12,    13,    14,    15,     3,    17,     5,    -1,
+      -1,     8,     6,     7,    11,    12,    13,    14,    15,     4,
+       5,     6,     7,    -1,    20,    21,    22,    23
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     5,     8,    11,    12,    13,    14,    15,    18,
-      19,    20,    19,    19,     8,     8,     8,     8,     8,     0,
-       4,     5,     6,     7,     9,    19,    21,    21,    21,    21,
-      21,    19,    19,    19,    19,     9,    10,     9,     9,     9,
-       9,    19
+       0,    19,     0,     1,     3,     5,     8,    11,    12,    13,
+      14,    15,    17,    20,    21,    22,    17,    21,    21,     8,
+       8,     8,     8,     8,     4,     5,     6,     7,    17,     9,
+      21,    23,    23,    23,    23,    23,    21,    21,    21,    21,
+       9,    10,     9,     9,     9,     9,    21
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    17,    18,    19,    19,    19,    19,    19,    19,    19,
-      19,    20,    20,    20,    20,    20,    21,    21
+       0,    18,    19,    19,    20,    20,    20,    21,    21,    21,
+      21,    21,    21,    21,    21,    22,    22,    22,    22,    22,
+      23,    23
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     3,     3,     3,     3,     2,     3,     1,
-       1,     4,     4,     4,     4,     4,     1,     3
+       0,     2,     0,     2,     2,     1,     2,     3,     3,     3,
+       3,     2,     3,     1,     1,     4,     4,     4,     4,     4,
+       1,     3
 };
 
 
@@ -823,8 +830,226 @@ int yydebug;
 #endif
 
 
+/* Context of a parse error.  */
+typedef struct
+{
+  yy_state_t *yyssp;
+  yysymbol_kind_t yytoken;
+} yypcontext_t;
+
+/* Put in YYARG at most YYARGN of the expected tokens given the
+   current YYCTX, and return the number of tokens stored in YYARG.  If
+   YYARG is null, return the number of expected tokens (guaranteed to
+   be less than YYNTOKENS).  Return YYENOMEM on memory exhaustion.
+   Return 0 if there are more than YYARGN expected tokens, yet fill
+   YYARG up to YYARGN. */
+static int
+yypcontext_expected_tokens (const yypcontext_t *yyctx,
+                            yysymbol_kind_t yyarg[], int yyargn)
+{
+  /* Actual size of YYARG. */
+  int yycount = 0;
+  int yyn = yypact[+*yyctx->yyssp];
+  if (!yypact_value_is_default (yyn))
+    {
+      /* Start YYX at -YYN if negative to avoid negative indexes in
+         YYCHECK.  In other words, skip the first -YYN actions for
+         this state because they are default actions.  */
+      int yyxbegin = yyn < 0 ? -yyn : 0;
+      /* Stay within bounds of both yycheck and yytname.  */
+      int yychecklim = YYLAST - yyn + 1;
+      int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
+      int yyx;
+      for (yyx = yyxbegin; yyx < yyxend; ++yyx)
+        if (yycheck[yyx + yyn] == yyx && yyx != YYSYMBOL_YYerror
+            && !yytable_value_is_error (yytable[yyx + yyn]))
+          {
+            if (!yyarg)
+              ++yycount;
+            else if (yycount == yyargn)
+              return 0;
+            else
+              yyarg[yycount++] = YY_CAST (yysymbol_kind_t, yyx);
+          }
+    }
+  if (yyarg && yycount == 0 && 0 < yyargn)
+    yyarg[0] = YYSYMBOL_YYEMPTY;
+  return yycount;
+}
 
 
+
+
+#ifndef yystrlen
+# if defined __GLIBC__ && defined _STRING_H
+#  define yystrlen(S) (YY_CAST (YYPTRDIFF_T, strlen (S)))
+# else
+/* Return the length of YYSTR.  */
+static YYPTRDIFF_T
+yystrlen (const char *yystr)
+{
+  YYPTRDIFF_T yylen;
+  for (yylen = 0; yystr[yylen]; yylen++)
+    continue;
+  return yylen;
+}
+# endif
+#endif
+
+#ifndef yystpcpy
+# if defined __GLIBC__ && defined _STRING_H && defined _GNU_SOURCE
+#  define yystpcpy stpcpy
+# else
+/* Copy YYSRC to YYDEST, returning the address of the terminating '\0' in
+   YYDEST.  */
+static char *
+yystpcpy (char *yydest, const char *yysrc)
+{
+  char *yyd = yydest;
+  const char *yys = yysrc;
+
+  while ((*yyd++ = *yys++) != '\0')
+    continue;
+
+  return yyd - 1;
+}
+# endif
+#endif
+
+
+
+static int
+yy_syntax_error_arguments (const yypcontext_t *yyctx,
+                           yysymbol_kind_t yyarg[], int yyargn)
+{
+  /* Actual size of YYARG. */
+  int yycount = 0;
+  /* There are many possibilities here to consider:
+     - If this state is a consistent state with a default action, then
+       the only way this function was invoked is if the default action
+       is an error action.  In that case, don't check for expected
+       tokens because there are none.
+     - The only way there can be no lookahead present (in yychar) is if
+       this state is a consistent state with a default action.  Thus,
+       detecting the absence of a lookahead is sufficient to determine
+       that there is no unexpected or expected token to report.  In that
+       case, just report a simple "syntax error".
+     - Don't assume there isn't a lookahead just because this state is a
+       consistent state with a default action.  There might have been a
+       previous inconsistent state, consistent state with a non-default
+       action, or user semantic action that manipulated yychar.
+     - Of course, the expected token list depends on states to have
+       correct lookahead information, and it depends on the parser not
+       to perform extra reductions after fetching a lookahead from the
+       scanner and before detecting a syntax error.  Thus, state merging
+       (from LALR or IELR) and default reductions corrupt the expected
+       token list.  However, the list is correct for canonical LR with
+       one exception: it will still contain any token that will not be
+       accepted due to an error action in a later state.
+  */
+  if (yyctx->yytoken != YYSYMBOL_YYEMPTY)
+    {
+      int yyn;
+      if (yyarg)
+        yyarg[yycount] = yyctx->yytoken;
+      ++yycount;
+      yyn = yypcontext_expected_tokens (yyctx,
+                                        yyarg ? yyarg + 1 : yyarg, yyargn - 1);
+      if (yyn == YYENOMEM)
+        return YYENOMEM;
+      else
+        yycount += yyn;
+    }
+  return yycount;
+}
+
+/* Copy into *YYMSG, which is of size *YYMSG_ALLOC, an error message
+   about the unexpected token YYTOKEN for the state stack whose top is
+   YYSSP.
+
+   Return 0 if *YYMSG was successfully written.  Return -1 if *YYMSG is
+   not large enough to hold the message.  In that case, also set
+   *YYMSG_ALLOC to the required number of bytes.  Return YYENOMEM if the
+   required number of bytes is too large to store.  */
+static int
+yysyntax_error (YYPTRDIFF_T *yymsg_alloc, char **yymsg,
+                const yypcontext_t *yyctx)
+{
+  enum { YYARGS_MAX = 5 };
+  /* Internationalized format string. */
+  const char *yyformat = YY_NULLPTR;
+  /* Arguments of yyformat: reported tokens (one for the "unexpected",
+     one per "expected"). */
+  yysymbol_kind_t yyarg[YYARGS_MAX];
+  /* Cumulated lengths of YYARG.  */
+  YYPTRDIFF_T yysize = 0;
+
+  /* Actual size of YYARG. */
+  int yycount = yy_syntax_error_arguments (yyctx, yyarg, YYARGS_MAX);
+  if (yycount == YYENOMEM)
+    return YYENOMEM;
+
+  switch (yycount)
+    {
+#define YYCASE_(N, S)                       \
+      case N:                               \
+        yyformat = S;                       \
+        break
+    default: /* Avoid compiler warnings. */
+      YYCASE_(0, YY_("syntax error"));
+      YYCASE_(1, YY_("syntax error, unexpected %s"));
+      YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
+      YYCASE_(3, YY_("syntax error, unexpected %s, expecting %s or %s"));
+      YYCASE_(4, YY_("syntax error, unexpected %s, expecting %s or %s or %s"));
+      YYCASE_(5, YY_("syntax error, unexpected %s, expecting %s or %s or %s or %s"));
+#undef YYCASE_
+    }
+
+  /* Compute error message size.  Don't count the "%s"s, but reserve
+     room for the terminator.  */
+  yysize = yystrlen (yyformat) - 2 * yycount + 1;
+  {
+    int yyi;
+    for (yyi = 0; yyi < yycount; ++yyi)
+      {
+        YYPTRDIFF_T yysize1
+          = yysize + yystrlen (yysymbol_name (yyarg[yyi]));
+        if (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM)
+          yysize = yysize1;
+        else
+          return YYENOMEM;
+      }
+  }
+
+  if (*yymsg_alloc < yysize)
+    {
+      *yymsg_alloc = 2 * yysize;
+      if (! (yysize <= *yymsg_alloc
+             && *yymsg_alloc <= YYSTACK_ALLOC_MAXIMUM))
+        *yymsg_alloc = YYSTACK_ALLOC_MAXIMUM;
+      return -1;
+    }
+
+  /* Avoid sprintf, as that infringes on the user's name space.
+     Don't have undefined behavior even if the translation
+     produced a string with the wrong number of "%s"s.  */
+  {
+    char *yyp = *yymsg;
+    int yyi = 0;
+    while ((*yyp = *yyformat) != '\0')
+      if (*yyp == '%' && yyformat[1] == 's' && yyi < yycount)
+        {
+          yyp = yystpcpy (yyp, yysymbol_name (yyarg[yyi++]));
+          yyformat += 2;
+        }
+      else
+        {
+          ++yyp;
+          ++yyformat;
+        }
+  }
+  return 0;
+}
 
 
 /*-----------------------------------------------.
@@ -893,7 +1118,10 @@ yyparse (void)
      action routines.  */
   YYSTYPE yyval;
 
-
+  /* Buffer for error messages, and its allocated size.  */
+  char yymsgbuf[128];
+  char *yymsg = yymsgbuf;
+  YYPTRDIFF_T yymsg_alloc = sizeof yymsgbuf;
 
 #define YYPOPSTACK(N)   (yyvsp -= (N), yyssp -= (N))
 
@@ -1103,41 +1331,58 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2: /* programme: expression  */
-#line 61 "src/syntaxique.y"
-               {
-        resultat_final = (yyvsp[0].nombre);
-        printf("✓ Résultat: %.6f\n", (yyvsp[0].nombre));
+  case 4: /* ligne: expression '\n'  */
+#line 70 "src/syntaxique.y"
+                    {
+        resultat_final = (yyvsp[-1].nombre);
+        printf("✓ Résultat: %.6f\n", (yyvsp[-1].nombre));
     }
-#line 1113 "syntaxique.tab.c"
+#line 1341 "syntaxique.tab.c"
     break;
 
-  case 3: /* expression: expression PLUS expression  */
-#line 69 "src/syntaxique.y"
+  case 5: /* ligne: '\n'  */
+#line 74 "src/syntaxique.y"
+           {
+        /* Ligne vide - ignore */
+    }
+#line 1349 "syntaxique.tab.c"
+    break;
+
+  case 6: /* ligne: error '\n'  */
+#line 77 "src/syntaxique.y"
+                 {
+        /* Erreur - récupère et continue */
+        yyerrok;
+    }
+#line 1358 "syntaxique.tab.c"
+    break;
+
+  case 7: /* expression: expression PLUS expression  */
+#line 85 "src/syntaxique.y"
                                {
         (yyval.nombre) = (yyvsp[-2].nombre) + (yyvsp[0].nombre);
     }
-#line 1121 "syntaxique.tab.c"
+#line 1366 "syntaxique.tab.c"
     break;
 
-  case 4: /* expression: expression MOINS expression  */
-#line 72 "src/syntaxique.y"
+  case 8: /* expression: expression MOINS expression  */
+#line 88 "src/syntaxique.y"
                                   {
         (yyval.nombre) = (yyvsp[-2].nombre) - (yyvsp[0].nombre);
     }
-#line 1129 "syntaxique.tab.c"
+#line 1374 "syntaxique.tab.c"
     break;
 
-  case 5: /* expression: expression FOIS expression  */
-#line 75 "src/syntaxique.y"
+  case 9: /* expression: expression FOIS expression  */
+#line 91 "src/syntaxique.y"
                                  {
         (yyval.nombre) = (yyvsp[-2].nombre) * (yyvsp[0].nombre);
     }
-#line 1137 "syntaxique.tab.c"
+#line 1382 "syntaxique.tab.c"
     break;
 
-  case 6: /* expression: expression DIVISE expression  */
-#line 78 "src/syntaxique.y"
+  case 10: /* expression: expression DIVISE expression  */
+#line 94 "src/syntaxique.y"
                                    {
         if ((yyvsp[0].nombre) == 0.0) {
             yyerror("Division par zéro");
@@ -1146,106 +1391,106 @@ yyreduce:
             (yyval.nombre) = (yyvsp[-2].nombre) / (yyvsp[0].nombre);
         }
     }
-#line 1150 "syntaxique.tab.c"
+#line 1395 "syntaxique.tab.c"
     break;
 
-  case 7: /* expression: MOINS expression  */
-#line 86 "src/syntaxique.y"
+  case 11: /* expression: MOINS expression  */
+#line 102 "src/syntaxique.y"
                                     {
         (yyval.nombre) = -(yyvsp[0].nombre);
     }
-#line 1158 "syntaxique.tab.c"
+#line 1403 "syntaxique.tab.c"
     break;
 
-  case 8: /* expression: PAREN_G expression PAREN_D  */
-#line 89 "src/syntaxique.y"
+  case 12: /* expression: PAREN_G expression PAREN_D  */
+#line 105 "src/syntaxique.y"
                                  {
         (yyval.nombre) = (yyvsp[-1].nombre);
     }
-#line 1166 "syntaxique.tab.c"
+#line 1411 "syntaxique.tab.c"
     break;
 
-  case 9: /* expression: fonction  */
-#line 92 "src/syntaxique.y"
+  case 13: /* expression: fonction  */
+#line 108 "src/syntaxique.y"
                {
         (yyval.nombre) = (yyvsp[0].nombre);
     }
-#line 1174 "syntaxique.tab.c"
+#line 1419 "syntaxique.tab.c"
     break;
 
-  case 10: /* expression: NOMBRE  */
-#line 95 "src/syntaxique.y"
+  case 14: /* expression: NOMBRE  */
+#line 111 "src/syntaxique.y"
              {
         (yyval.nombre) = (yyvsp[0].nombre);
     }
-#line 1182 "syntaxique.tab.c"
+#line 1427 "syntaxique.tab.c"
     break;
 
-  case 11: /* fonction: SOMME PAREN_G liste_args PAREN_D  */
-#line 102 "src/syntaxique.y"
+  case 15: /* fonction: SOMME PAREN_G liste_args PAREN_D  */
+#line 118 "src/syntaxique.y"
                                      {
         (yyval.nombre) = calcul_somme((yyvsp[-1].liste));
         liberer_liste((yyvsp[-1].liste));
     }
-#line 1191 "syntaxique.tab.c"
+#line 1436 "syntaxique.tab.c"
     break;
 
-  case 12: /* fonction: PRODUIT PAREN_G liste_args PAREN_D  */
-#line 106 "src/syntaxique.y"
+  case 16: /* fonction: PRODUIT PAREN_G liste_args PAREN_D  */
+#line 122 "src/syntaxique.y"
                                          {
         (yyval.nombre) = calcul_produit((yyvsp[-1].liste));
         liberer_liste((yyvsp[-1].liste));
     }
-#line 1200 "syntaxique.tab.c"
+#line 1445 "syntaxique.tab.c"
     break;
 
-  case 13: /* fonction: MOYENNE PAREN_G liste_args PAREN_D  */
-#line 110 "src/syntaxique.y"
+  case 17: /* fonction: MOYENNE PAREN_G liste_args PAREN_D  */
+#line 126 "src/syntaxique.y"
                                          {
         (yyval.nombre) = calcul_moyenne((yyvsp[-1].liste));
         liberer_liste((yyvsp[-1].liste));
     }
-#line 1209 "syntaxique.tab.c"
+#line 1454 "syntaxique.tab.c"
     break;
 
-  case 14: /* fonction: VARIANCE PAREN_G liste_args PAREN_D  */
-#line 114 "src/syntaxique.y"
+  case 18: /* fonction: VARIANCE PAREN_G liste_args PAREN_D  */
+#line 130 "src/syntaxique.y"
                                           {
         (yyval.nombre) = calcul_variance((yyvsp[-1].liste));
         liberer_liste((yyvsp[-1].liste));
     }
-#line 1218 "syntaxique.tab.c"
+#line 1463 "syntaxique.tab.c"
     break;
 
-  case 15: /* fonction: ECART_TYPE PAREN_G liste_args PAREN_D  */
-#line 118 "src/syntaxique.y"
+  case 19: /* fonction: ECART_TYPE PAREN_G liste_args PAREN_D  */
+#line 134 "src/syntaxique.y"
                                             {
         (yyval.nombre) = calcul_ecart_type((yyvsp[-1].liste));
         liberer_liste((yyvsp[-1].liste));
     }
-#line 1227 "syntaxique.tab.c"
+#line 1472 "syntaxique.tab.c"
     break;
 
-  case 16: /* liste_args: expression  */
-#line 126 "src/syntaxique.y"
+  case 20: /* liste_args: expression  */
+#line 142 "src/syntaxique.y"
                {
         (yyval.liste) = creer_liste();
         ajouter_element((yyval.liste), (yyvsp[0].nombre));
     }
-#line 1236 "syntaxique.tab.c"
+#line 1481 "syntaxique.tab.c"
     break;
 
-  case 17: /* liste_args: liste_args VIRGULE expression  */
-#line 130 "src/syntaxique.y"
+  case 21: /* liste_args: liste_args VIRGULE expression  */
+#line 146 "src/syntaxique.y"
                                     {
         ajouter_element((yyvsp[-2].liste), (yyvsp[0].nombre));
         (yyval.liste) = (yyvsp[-2].liste);
     }
-#line 1245 "syntaxique.tab.c"
+#line 1490 "syntaxique.tab.c"
     break;
 
 
-#line 1249 "syntaxique.tab.c"
+#line 1494 "syntaxique.tab.c"
 
       default: break;
     }
@@ -1292,7 +1537,37 @@ yyerrlab:
   if (!yyerrstatus)
     {
       ++yynerrs;
-      yyerror (YY_("syntax error"));
+      {
+        yypcontext_t yyctx
+          = {yyssp, yytoken};
+        char const *yymsgp = YY_("syntax error");
+        int yysyntax_error_status;
+        yysyntax_error_status = yysyntax_error (&yymsg_alloc, &yymsg, &yyctx);
+        if (yysyntax_error_status == 0)
+          yymsgp = yymsg;
+        else if (yysyntax_error_status == -1)
+          {
+            if (yymsg != yymsgbuf)
+              YYSTACK_FREE (yymsg);
+            yymsg = YY_CAST (char *,
+                             YYSTACK_ALLOC (YY_CAST (YYSIZE_T, yymsg_alloc)));
+            if (yymsg)
+              {
+                yysyntax_error_status
+                  = yysyntax_error (&yymsg_alloc, &yymsg, &yyctx);
+                yymsgp = yymsg;
+              }
+            else
+              {
+                yymsg = yymsgbuf;
+                yymsg_alloc = sizeof yymsgbuf;
+                yysyntax_error_status = YYENOMEM;
+              }
+          }
+        yyerror (yymsgp);
+        if (yysyntax_error_status == YYENOMEM)
+          YYNOMEM;
+      }
     }
 
   if (yyerrstatus == 3)
@@ -1434,20 +1709,62 @@ yyreturnlab:
   if (yyss != yyssa)
     YYSTACK_FREE (yyss);
 #endif
-
+  if (yymsg != yymsgbuf)
+    YYSTACK_FREE (yymsg);
   return yyresult;
 }
 
-#line 136 "src/syntaxique.y"
+#line 152 "src/syntaxique.y"
 
 
 /* ========== SECTION 4: CODE C ADDITIONNEL ========== */
 
 /**
- * Gestion des erreurs syntaxiques
+ * Gestion des erreurs syntaxiques avec messages détaillés
  */
 void yyerror(const char *s) {
-    fprintf(stderr, "❌ Erreur syntaxique ligne %d: %s\n", ligne, s);
+    /* Le compteur de ligne est incrémenté avant le traitement de l'erreur,
+     * donc on doit décrémenter pour afficher le bon numéro */
+    int ligne_erreur = (ligne > 1) ? ligne - 1 : 1;
+    
+    /* Messages personnalisés selon le type d'erreur détecté */
+    
+    /* Erreur sémantique : Division par zéro */
+    if (strstr(s, "Division par zéro")) {
+        fprintf(stderr, "❌ Erreur sémantique ligne %d: Division par zéro interdite\n", ligne_erreur);
+    }
+    /* Erreur : Deux nombres consécutifs sans opérateur */
+    else if (strstr(s, "unexpected NOMBRE")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Opérateur manquant entre les expressions\n", ligne_erreur);
+    }
+    /* Erreur : Parenthèse fermante manquante */
+    else if (strstr(s, "expecting ')'") || strstr(s, "expecting PAREN_D")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Parenthèse fermante ')' manquante\n", ligne_erreur);
+    }
+    /* Erreur : Parenthèse ouvrante manquante */
+    else if (strstr(s, "expecting '('") || strstr(s, "expecting PAREN_G")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Parenthèse ouvrante '(' manquante\n", ligne_erreur);
+    }
+    /* Erreur : Virgule manquante entre arguments */
+    else if (strstr(s, "expecting ','") || strstr(s, "expecting VIRGULE")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Virgule ',' attendue entre les arguments\n", ligne_erreur);
+    }
+    /* Erreur : Expression attendue après un opérateur */
+    else if (strstr(s, "expecting expression") || strstr(s, "unexpected end")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Expression attendue après l'opérateur\n", ligne_erreur);
+    }
+    /* Erreur : Fin de fichier inattendue */
+    else if (strstr(s, "unexpected end of file") || strstr(s, "unexpected $end")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Fin de fichier inattendue, expression incomplète\n", ligne_erreur);
+    }
+    /* Erreur : Token inattendu */
+    else if (strstr(s, "unexpected")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Élément inattendu dans l'expression\n", ligne_erreur);
+    }
+    /* Message générique pour les autres erreurs */
+    else {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: %s\n", ligne_erreur, s);
+    }
 }
 
 /**

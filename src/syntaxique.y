@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 /* Prototypes */
 int yylex(void);
@@ -52,15 +53,30 @@ double resultat_final;
 /* Symbole de départ */
 %start programme
 
+/* Messages d'erreur détaillés */
+%define parse.error detailed
+
 %%
 
 /* ========== SECTION 3: GRAMMAIRE ET ACTIONS SÉMANTIQUES ========== */
 
 /* --- Règle de départ --- */
 programme:
-    expression {
+    /* Vide - permet de démarrer */
+    | programme ligne
+    ;
+
+ligne:
+    expression '\n' {
         resultat_final = $1;
         printf("✓ Résultat: %.6f\n", $1);
+    }
+    | '\n' {
+        /* Ligne vide - ignore */
+    }
+    | error '\n' {
+        /* Erreur - récupère et continue */
+        yyerrok;
     }
     ;
 
@@ -138,10 +154,51 @@ liste_args:
 /* ========== SECTION 4: CODE C ADDITIONNEL ========== */
 
 /**
- * Gestion des erreurs syntaxiques
+ * Gestion des erreurs syntaxiques avec messages détaillés
  */
 void yyerror(const char *s) {
-    fprintf(stderr, "❌ Erreur syntaxique ligne %d: %s\n", ligne, s);
+    /* Le compteur de ligne est incrémenté avant le traitement de l'erreur,
+     * donc on doit décrémenter pour afficher le bon numéro */
+    int ligne_erreur = (ligne > 1) ? ligne - 1 : 1;
+    
+    /* Messages personnalisés selon le type d'erreur détecté */
+    
+    /* Erreur sémantique : Division par zéro */
+    if (strstr(s, "Division par zéro")) {
+        fprintf(stderr, "❌ Erreur sémantique ligne %d: Division par zéro interdite\n", ligne_erreur);
+    }
+    /* Erreur : Deux nombres consécutifs sans opérateur */
+    else if (strstr(s, "unexpected NOMBRE")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Opérateur manquant entre les expressions\n", ligne_erreur);
+    }
+    /* Erreur : Parenthèse fermante manquante */
+    else if (strstr(s, "expecting ')'") || strstr(s, "expecting PAREN_D")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Parenthèse fermante ')' manquante\n", ligne_erreur);
+    }
+    /* Erreur : Parenthèse ouvrante manquante */
+    else if (strstr(s, "expecting '('") || strstr(s, "expecting PAREN_G")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Parenthèse ouvrante '(' manquante\n", ligne_erreur);
+    }
+    /* Erreur : Virgule manquante entre arguments */
+    else if (strstr(s, "expecting ','") || strstr(s, "expecting VIRGULE")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Virgule ',' attendue entre les arguments\n", ligne_erreur);
+    }
+    /* Erreur : Expression attendue après un opérateur */
+    else if (strstr(s, "expecting expression") || strstr(s, "unexpected end")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Expression attendue après l'opérateur\n", ligne_erreur);
+    }
+    /* Erreur : Fin de fichier inattendue */
+    else if (strstr(s, "unexpected end of file") || strstr(s, "unexpected $end")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Fin de fichier inattendue, expression incomplète\n", ligne_erreur);
+    }
+    /* Erreur : Token inattendu */
+    else if (strstr(s, "unexpected")) {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: Élément inattendu dans l'expression\n", ligne_erreur);
+    }
+    /* Message générique pour les autres erreurs */
+    else {
+        fprintf(stderr, "❌ Erreur syntaxique ligne %d: %s\n", ligne_erreur, s);
+    }
 }
 
 /**

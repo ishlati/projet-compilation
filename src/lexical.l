@@ -64,7 +64,9 @@ RETOUR_LIGNE    \n
 ","             { colonne += yyleng; return VIRGULE; }
 
 {ESPACE}+       { colonne += yyleng; }
-{RETOUR_LIGNE}  { ligne++; colonne = 1; }
+{RETOUR_LIGNE}  { ligne++; colonne = 1; return '\n'; }
+
+"#".*           { /* Ignore les commentaires */ }
 
 .               { 
                   erreur_lexicale(yytext); 

@@ -82,7 +82,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 32 "src/syntaxique.y"
+#line 33 "src/syntaxique.y"
 
     double nombre;              // Pour les nombres
     Liste_Args* liste;          // Pour les listes d'arguments
