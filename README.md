@@ -1,7 +1,7 @@
 # Évaluateur d'Expressions Arithmétiques
 
 **Projet de Compilation - Utilisation de Flex et Bison**  
-Isra - 2CS - USTHB
+
 
 ---
 
@@ -286,28 +286,4 @@ variance = Σ(xi - moyenne)² / n
 ```
 
 ---
-
-## 👤 Auteur
-
-**Isra**  
-Étudiante en 2CS - AI Engineering  
-USTHB - Université des Sciences et de la Technologie Houari Boumediene
-
----
-
-## 📄 Licence
-
-Projet académique - USTHB 2024-2025
-
----
-
-## 🙏 Remerciements
-
-- Équipe pédagogique du cours de Compilation
-- Documentation officielle de Flex et Bison
-- Communauté GNU
-
----
-
-**Date de création :** Décembre 2024  
-**Version :** 1.0
+-

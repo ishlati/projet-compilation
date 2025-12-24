@@ -1,23 +1,13 @@
-/******************************************************************************
- * FONCTIONS STATISTIQUES - Implémentation
- * Fichier: fonctions.c
- * Description: Implémentation des calculs statistiques
- *****************************************************************************/
+/* fonctions.c - Implémentation des calculs statistiques */
 
 #include "fonctions.h"
 #include <stdio.h>
 #include <string.h>
 
-/* ========== CONSTANTES ========== */
+#define CAPACITE_INITIALE 10
+#define FACTEUR_CROISSANCE 2
 
-#define CAPACITE_INITIALE 10    // Capacité initiale de la liste
-#define FACTEUR_CROISSANCE 2    // Facteur de croissance du tableau
-
-/* ========== GESTION DE LA LISTE D'ARGUMENTS ========== */
-
-/**
- * Crée une nouvelle liste vide
- */
+/* Crée une nouvelle liste vide */
 Liste_Args* creer_liste(void) {
     Liste_Args *liste = (Liste_Args*)malloc(sizeof(Liste_Args));
     
@@ -40,9 +30,7 @@ Liste_Args* creer_liste(void) {
     return liste;
 }
 
-/**
- * Ajoute un élément à la liste (avec réallocation si nécessaire)
- */
+/* Ajoute un élément à la liste (avec réallocation si nécessaire) */
 void ajouter_element(Liste_Args *liste, double valeur) {
     if (liste == NULL) {
         fprintf(stderr, "Erreur: liste NULL dans ajouter_element\n");
@@ -71,9 +59,7 @@ void ajouter_element(Liste_Args *liste, double valeur) {
     liste->taille++;
 }
 
-/**
- * Libère la mémoire de la liste
- */
+/* Libère la mémoire de la liste */
 void liberer_liste(Liste_Args *liste) {
     if (liste != NULL) {
         if (liste->elements != NULL) {
@@ -83,11 +69,7 @@ void liberer_liste(Liste_Args *liste) {
     }
 }
 
-/* ========== FONCTIONS STATISTIQUES ========== */
-
-/**
- * Calcule la somme
- */
+/* Calcule la somme */
 double calcul_somme(Liste_Args *liste) {
     if (liste == NULL || liste->taille == 0) {
         fprintf(stderr, "Erreur: liste vide ou NULL\n");
@@ -102,9 +84,7 @@ double calcul_somme(Liste_Args *liste) {
     return somme;
 }
 
-/**
- * Calcule le produit
- */
+/* Calcule le produit */
 double calcul_produit(Liste_Args *liste) {
     if (liste == NULL || liste->taille == 0) {
         fprintf(stderr, "Erreur: liste vide ou NULL\n");
@@ -119,9 +99,7 @@ double calcul_produit(Liste_Args *liste) {
     return produit;
 }
 
-/**
- * Calcule la moyenne
- */
+/* Calcule la moyenne */
 double calcul_moyenne(Liste_Args *liste) {
     if (liste == NULL || liste->taille == 0) {
         fprintf(stderr, "Erreur: liste vide ou NULL\n");
@@ -132,10 +110,7 @@ double calcul_moyenne(Liste_Args *liste) {
     return somme / liste->taille;
 }
 
-/**
- * Calcule la variance
- * Formule: variance = Σ(xi - moyenne)² / n
- */
+/* Calcule la variance: Σ(xi - moyenne)² / n */
 double calcul_variance(Liste_Args *liste) {
     if (liste == NULL || liste->taille == 0) {
         fprintf(stderr, "Erreur: liste vide ou NULL\n");
@@ -156,10 +131,7 @@ double calcul_variance(Liste_Args *liste) {
     return somme_carres / liste->taille;
 }
 
-/**
- * Calcule l'écart-type
- * Formule: écart-type = √variance
- */
+/* Calcule l'écart-type: √variance */
 double calcul_ecart_type(Liste_Args *liste) {
     if (liste == NULL || liste->taille == 0) {
         fprintf(stderr, "Erreur: liste vide ou NULL\n");
@@ -170,11 +142,7 @@ double calcul_ecart_type(Liste_Args *liste) {
     return sqrt(variance);
 }
 
-/* ========== FONCTIONS AUXILIAIRES ========== */
-
-/**
- * Affiche le contenu d'une liste (pour le débogage)
- */
+/* Affiche le contenu d'une liste (debug) */
 void afficher_liste(Liste_Args *liste) {
     if (liste == NULL) {
         printf("Liste NULL\n");

@@ -67,26 +67,22 @@
 
 
 /* First part of user prologue.  */
-#line 11 "src/syntaxique.y"
-
-/* ========== SECTION 1: DÉCLARATIONS C ========== */
+#line 7 "src/syntaxique.y"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
 
-/* Prototypes */
 int yylex(void);
 void yyerror(const char *s);
 extern int ligne;
 extern int colonne;
 extern FILE *yyin;
 
-/* Variable globale pour le résultat */
 double resultat_final;
 
-#line 90 "syntaxique.tab.c"
+#line 86 "syntaxique.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -525,9 +521,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    64,    64,    66,    70,    74,    77,    85,    88,    91,
-      94,   102,   105,   108,   111,   118,   122,   126,   130,   134,
-     142,   146
+       0,    49,    49,    51,    55,    59,    60,    67,    70,    73,
+      76,    84,    87,    90,    93,   100,   104,   108,   112,   116,
+     124,   128
 };
 #endif
 
@@ -1332,57 +1328,54 @@ yyreduce:
   switch (yyn)
     {
   case 4: /* ligne: expression '\n'  */
-#line 70 "src/syntaxique.y"
+#line 55 "src/syntaxique.y"
                     {
         resultat_final = (yyvsp[-1].nombre);
         printf("✓ Résultat: %.6f\n", (yyvsp[-1].nombre));
     }
-#line 1341 "syntaxique.tab.c"
+#line 1337 "syntaxique.tab.c"
     break;
 
   case 5: /* ligne: '\n'  */
-#line 74 "src/syntaxique.y"
-           {
-        /* Ligne vide - ignore */
-    }
-#line 1349 "syntaxique.tab.c"
+#line 59 "src/syntaxique.y"
+           { /* Ligne vide */ }
+#line 1343 "syntaxique.tab.c"
     break;
 
   case 6: /* ligne: error '\n'  */
-#line 77 "src/syntaxique.y"
+#line 60 "src/syntaxique.y"
                  {
-        /* Erreur - récupère et continue */
         yyerrok;
     }
-#line 1358 "syntaxique.tab.c"
+#line 1351 "syntaxique.tab.c"
     break;
 
   case 7: /* expression: expression PLUS expression  */
-#line 85 "src/syntaxique.y"
+#line 67 "src/syntaxique.y"
                                {
         (yyval.nombre) = (yyvsp[-2].nombre) + (yyvsp[0].nombre);
     }
-#line 1366 "syntaxique.tab.c"
+#line 1359 "syntaxique.tab.c"
     break;
 
   case 8: /* expression: expression MOINS expression  */
-#line 88 "src/syntaxique.y"
+#line 70 "src/syntaxique.y"
                                   {
         (yyval.nombre) = (yyvsp[-2].nombre) - (yyvsp[0].nombre);
     }
-#line 1374 "syntaxique.tab.c"
+#line 1367 "syntaxique.tab.c"
     break;
 
   case 9: /* expression: expression FOIS expression  */
-#line 91 "src/syntaxique.y"
+#line 73 "src/syntaxique.y"
                                  {
         (yyval.nombre) = (yyvsp[-2].nombre) * (yyvsp[0].nombre);
     }
-#line 1382 "syntaxique.tab.c"
+#line 1375 "syntaxique.tab.c"
     break;
 
   case 10: /* expression: expression DIVISE expression  */
-#line 94 "src/syntaxique.y"
+#line 76 "src/syntaxique.y"
                                    {
         if ((yyvsp[0].nombre) == 0.0) {
             yyerror("Division par zéro");
@@ -1391,106 +1384,106 @@ yyreduce:
             (yyval.nombre) = (yyvsp[-2].nombre) / (yyvsp[0].nombre);
         }
     }
-#line 1395 "syntaxique.tab.c"
+#line 1388 "syntaxique.tab.c"
     break;
 
   case 11: /* expression: MOINS expression  */
-#line 102 "src/syntaxique.y"
+#line 84 "src/syntaxique.y"
                                     {
         (yyval.nombre) = -(yyvsp[0].nombre);
     }
-#line 1403 "syntaxique.tab.c"
+#line 1396 "syntaxique.tab.c"
     break;
 
   case 12: /* expression: PAREN_G expression PAREN_D  */
-#line 105 "src/syntaxique.y"
+#line 87 "src/syntaxique.y"
                                  {
         (yyval.nombre) = (yyvsp[-1].nombre);
     }
-#line 1411 "syntaxique.tab.c"
+#line 1404 "syntaxique.tab.c"
     break;
 
   case 13: /* expression: fonction  */
-#line 108 "src/syntaxique.y"
+#line 90 "src/syntaxique.y"
                {
         (yyval.nombre) = (yyvsp[0].nombre);
     }
-#line 1419 "syntaxique.tab.c"
+#line 1412 "syntaxique.tab.c"
     break;
 
   case 14: /* expression: NOMBRE  */
-#line 111 "src/syntaxique.y"
+#line 93 "src/syntaxique.y"
              {
         (yyval.nombre) = (yyvsp[0].nombre);
     }
-#line 1427 "syntaxique.tab.c"
+#line 1420 "syntaxique.tab.c"
     break;
 
   case 15: /* fonction: SOMME PAREN_G liste_args PAREN_D  */
-#line 118 "src/syntaxique.y"
+#line 100 "src/syntaxique.y"
                                      {
         (yyval.nombre) = calcul_somme((yyvsp[-1].liste));
         liberer_liste((yyvsp[-1].liste));
     }
-#line 1436 "syntaxique.tab.c"
+#line 1429 "syntaxique.tab.c"
     break;
 
   case 16: /* fonction: PRODUIT PAREN_G liste_args PAREN_D  */
-#line 122 "src/syntaxique.y"
+#line 104 "src/syntaxique.y"
                                          {
         (yyval.nombre) = calcul_produit((yyvsp[-1].liste));
         liberer_liste((yyvsp[-1].liste));
     }
-#line 1445 "syntaxique.tab.c"
+#line 1438 "syntaxique.tab.c"
     break;
 
   case 17: /* fonction: MOYENNE PAREN_G liste_args PAREN_D  */
-#line 126 "src/syntaxique.y"
+#line 108 "src/syntaxique.y"
                                          {
         (yyval.nombre) = calcul_moyenne((yyvsp[-1].liste));
         liberer_liste((yyvsp[-1].liste));
     }
-#line 1454 "syntaxique.tab.c"
+#line 1447 "syntaxique.tab.c"
     break;
 
   case 18: /* fonction: VARIANCE PAREN_G liste_args PAREN_D  */
-#line 130 "src/syntaxique.y"
+#line 112 "src/syntaxique.y"
                                           {
         (yyval.nombre) = calcul_variance((yyvsp[-1].liste));
         liberer_liste((yyvsp[-1].liste));
     }
-#line 1463 "syntaxique.tab.c"
+#line 1456 "syntaxique.tab.c"
     break;
 
   case 19: /* fonction: ECART_TYPE PAREN_G liste_args PAREN_D  */
-#line 134 "src/syntaxique.y"
+#line 116 "src/syntaxique.y"
                                             {
         (yyval.nombre) = calcul_ecart_type((yyvsp[-1].liste));
         liberer_liste((yyvsp[-1].liste));
     }
-#line 1472 "syntaxique.tab.c"
+#line 1465 "syntaxique.tab.c"
     break;
 
   case 20: /* liste_args: expression  */
-#line 142 "src/syntaxique.y"
+#line 124 "src/syntaxique.y"
                {
         (yyval.liste) = creer_liste();
         ajouter_element((yyval.liste), (yyvsp[0].nombre));
     }
-#line 1481 "syntaxique.tab.c"
+#line 1474 "syntaxique.tab.c"
     break;
 
   case 21: /* liste_args: liste_args VIRGULE expression  */
-#line 146 "src/syntaxique.y"
+#line 128 "src/syntaxique.y"
                                     {
         ajouter_element((yyvsp[-2].liste), (yyvsp[0].nombre));
         (yyval.liste) = (yyvsp[-2].liste);
     }
-#line 1490 "syntaxique.tab.c"
+#line 1483 "syntaxique.tab.c"
     break;
 
 
-#line 1494 "syntaxique.tab.c"
+#line 1487 "syntaxique.tab.c"
 
       default: break;
     }
@@ -1714,62 +1707,44 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 152 "src/syntaxique.y"
+#line 134 "src/syntaxique.y"
 
 
-/* ========== SECTION 4: CODE C ADDITIONNEL ========== */
-
-/**
- * Gestion des erreurs syntaxiques avec messages détaillés
- */
+/* Gestion des erreurs syntaxiques */
 void yyerror(const char *s) {
-    /* Le compteur de ligne est incrémenté avant le traitement de l'erreur,
-     * donc on doit décrémenter pour afficher le bon numéro */
     int ligne_erreur = (ligne > 1) ? ligne - 1 : 1;
     
-    /* Messages personnalisés selon le type d'erreur détecté */
-    
-    /* Erreur sémantique : Division par zéro */
+    /* Messages personnalisés selon le type d'erreur */
     if (strstr(s, "Division par zéro")) {
         fprintf(stderr, "❌ Erreur sémantique ligne %d: Division par zéro interdite\n", ligne_erreur);
     }
-    /* Erreur : Deux nombres consécutifs sans opérateur */
     else if (strstr(s, "unexpected NOMBRE")) {
         fprintf(stderr, "❌ Erreur syntaxique ligne %d: Opérateur manquant entre les expressions\n", ligne_erreur);
     }
-    /* Erreur : Parenthèse fermante manquante */
     else if (strstr(s, "expecting ')'") || strstr(s, "expecting PAREN_D")) {
         fprintf(stderr, "❌ Erreur syntaxique ligne %d: Parenthèse fermante ')' manquante\n", ligne_erreur);
     }
-    /* Erreur : Parenthèse ouvrante manquante */
     else if (strstr(s, "expecting '('") || strstr(s, "expecting PAREN_G")) {
         fprintf(stderr, "❌ Erreur syntaxique ligne %d: Parenthèse ouvrante '(' manquante\n", ligne_erreur);
     }
-    /* Erreur : Virgule manquante entre arguments */
     else if (strstr(s, "expecting ','") || strstr(s, "expecting VIRGULE")) {
         fprintf(stderr, "❌ Erreur syntaxique ligne %d: Virgule ',' attendue entre les arguments\n", ligne_erreur);
     }
-    /* Erreur : Expression attendue après un opérateur */
     else if (strstr(s, "expecting expression") || strstr(s, "unexpected end")) {
         fprintf(stderr, "❌ Erreur syntaxique ligne %d: Expression attendue après l'opérateur\n", ligne_erreur);
     }
-    /* Erreur : Fin de fichier inattendue */
     else if (strstr(s, "unexpected end of file") || strstr(s, "unexpected $end")) {
         fprintf(stderr, "❌ Erreur syntaxique ligne %d: Fin de fichier inattendue, expression incomplète\n", ligne_erreur);
     }
-    /* Erreur : Token inattendu */
     else if (strstr(s, "unexpected")) {
         fprintf(stderr, "❌ Erreur syntaxique ligne %d: Élément inattendu dans l'expression\n", ligne_erreur);
     }
-    /* Message générique pour les autres erreurs */
     else {
         fprintf(stderr, "❌ Erreur syntaxique ligne %d: %s\n", ligne_erreur, s);
     }
 }
 
-/**
- * Fonction principale
- */
+/* Fonction principale */
 int main(int argc, char **argv) {
     printf("\n");
     printf("╔════════════════════════════════════════════════════════╗\n");
@@ -1778,9 +1753,7 @@ int main(int argc, char **argv) {
     printf("╚════════════════════════════════════════════════════════╝\n");
     printf("\n");
     
-    /* Gestion de l'entrée */
     if (argc > 1) {
-        // Lecture depuis un fichier
         yyin = fopen(argv[1], "r");
         if (!yyin) {
             perror("❌ Erreur d'ouverture du fichier");
@@ -1788,7 +1761,6 @@ int main(int argc, char **argv) {
         }
         printf("📁 Lecture depuis le fichier: %s\n\n", argv[1]);
     } else {
-        // Lecture depuis stdin (ligne de commande ou pipe)
         printf("📝 Entrez une expression (Ctrl+D pour terminer):\n");
         printf("Exemples:\n");
         printf("  • 5 + 3 * 2\n");
@@ -1799,15 +1771,12 @@ int main(int argc, char **argv) {
         yyin = stdin;
     }
     
-    /* Analyse et évaluation */
     int resultat_parse = yyparse();
     
-    /* Fermeture du fichier si nécessaire */
     if (argc > 1 && yyin) {
         fclose(yyin);
     }
     
-    /* Code de retour */
     printf("\n");
     if (resultat_parse == 0) {
         printf("✓ Analyse terminée avec succès\n\n");

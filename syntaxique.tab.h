@@ -45,7 +45,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 7 "src/syntaxique.y"
+#line 3 "src/syntaxique.y"
 
     #include "fonctions.h"
 
@@ -82,10 +82,10 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 33 "src/syntaxique.y"
+#line 23 "src/syntaxique.y"
 
-    double nombre;              // Pour les nombres
-    Liste_Args* liste;          // Pour les listes d'arguments
+    double nombre;
+    Liste_Args* liste;
 
 #line 91 "syntaxique.tab.h"
 
